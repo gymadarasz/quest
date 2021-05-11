@@ -1,0 +1,16 @@
+{
+    "name": "gyula/quest",
+    "authors": [
+        {
+            "name": "Gyula Madarasz",
+            "email": "gyula.madarasz@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+	    "Madlib\\": "lib/",
+            "Quest\\": "src/"
+        }
+    },
+    "require": {}
+}

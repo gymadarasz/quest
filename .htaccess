@@ -1,0 +1,9 @@
+RewriteEngine on
+Options -Indexes
+RewriteCond %{REQUEST_URI}  !(\.png|\.jpg|\.gif|\.jpeg|\.bmp|\.php)$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /quest/index.php?route=$1 [NC,L,QSA]
+
+# to get it works, you need 'sudo a2enmod rewrite' and 'AllowOverride All'
+# see more: http://www.iasptk.com/enable-apache-mod_rewrite-ubuntu-14-04-lts/
