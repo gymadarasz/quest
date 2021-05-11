@@ -68,10 +68,9 @@ class Registry
         }
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
         $token = bin2hex(random_bytes(32));
-        $api_secret = $this->code->generate(30);
         try {
             if (!$this->mysql->insert("        
-                INSERT INTO user (email, password_hash, token, api_secret) VALUES ('$email', '$hash', '$token', '$api_secret');
+                INSERT INTO user (email, password_hash, token) VALUES ('$email', '$hash', '$token');
             ") || !$this->mailer->send('activation', ['email' => $email], ['token' => $token])) {
                 $this->message->error('Registration failed. Please try again later...');
                 $this->page->show('registry');

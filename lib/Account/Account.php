@@ -37,10 +37,6 @@ class Account
             $this->redirect->go('login');
             return;
         }
-
-        if (!$user = $this->mysql->selectRow("SELECT balance, api_secret FROM user WHERE id = $user_id")) {
-            throw new Exception('Unable to resolve user account');
-        }
         
         $this->page->show('home', []);
     }
