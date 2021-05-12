@@ -1,6 +1,6 @@
 <h1>{$name}</h1>
 
-<form method="POST" action="quest/quests/fill?quest_id={$id}?user_ref={$user_ref}">
+<form method="POST" action="quest/quests/fill?quest_id={$id}&user_ref={$user_ref}">
     <input type="hidden" name="csrf" value="{$__csrf}">
 
     <ul>
@@ -9,7 +9,7 @@
                 <h3><encode $question['label'] /></h3>
                 <ul>
                     <foreach $question['answers'] as $answer:>
-                        <li>
+                        <li style="list-style-type: none;">
                             <input type="radio" id="answer_<?php echo (int)$answer['id']?>" name="quest[<?php echo (int)$question['id']?>]" value="<?php echo (int)$answer['id']?>" required />
                             <label for="answer_<?php echo (int)$answer['id']?>"><encode $answer['label'] /></label>
                         </li>
@@ -19,10 +19,10 @@
         </foreach>
     </ul>
 
-    <input type="text" name="name" value="" placeholder="Name" required /><br />
-    <input type="text" name="address" value="" placeholder="Address" /><br />
-    <input type="text" name="email" value="" placeholder="Email" /><br />
-    <input type="text" name="phone" value="" placeholder="Phone" /><br />
+    <input class="form-control" type="text" name="name" value="" placeholder="Name" required /><br />
+    <input class="form-control" type="text" name="address" value="" placeholder="Address" /><br />
+    <input class="form-control" type="text" name="email" value="" placeholder="Email" /><br />
+    <input class="form-control" type="text" name="phone" value="" placeholder="Phone" /><br />
 
-    <button type="submit">Send</button>
+    <button class="btn btn-primary" type="submit">Send</button>
 </form>

@@ -1,5 +1,6 @@
 {
     "name": "gyula/quest",
+    "description": "Quest",
     "authors": [
         {
             "name": "Gyula Madarasz",
@@ -12,5 +13,11 @@
             "Quest\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "phpmailer/phpmailer": "^6.1",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.84"
+    }
 }

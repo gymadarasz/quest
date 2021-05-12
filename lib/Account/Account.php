@@ -38,7 +38,13 @@ class Account
             return;
         }
         
-        $this->page->show('home', $this->session->get());
+        $this->page->show('home', array_merge(
+            $this->session->get(), 
+            $this->config::QUEST,
+            [
+                'paypal_env' => $this->config::SITE['env'] === $this->config::ENV_LIVE ? 'production' : 'sandbox',
+            ]
+        ));
     }
 
     public function logout(): void

@@ -1,4 +1,4 @@
 <form method="POST" action="{$__base}change">
-    <input type="password" name="password" placeholder="New password" value="">
-    <button>Change password</button>
+    <input class="form-control" type="password" name="password" placeholder="New password" value="">
+    <button class="btn btn-primary">Change password</button>
 </form>

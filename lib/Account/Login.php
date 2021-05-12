@@ -99,7 +99,7 @@ class Login
             $this->session->set('user_subscribed_until_at', $user['subscribed_until_at']);
             $this->session->set('user_subscribed', (int)$user['subscribed']);
             $this->session->set('user_ref', $user['ref']);
-            $this->message->success('Logged in. Last login was at ' . $user['last_login_at']);
+            $this->message->success('Logged in.' . ($user['last_login_at'] ? ' - Last login was at ' . $user['last_login_at'] : ''));
             $query = "
                 UPDATE user SET last_login_at = NOW() WHERE id = {$user['id']}
             ";

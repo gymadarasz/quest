@@ -9,6 +9,8 @@
             Email: {$email}<br />
             Phone: {$phone}<br />
             <a href="{$__base}results?contact_id={$id}">See questionary results</a>
+            <br />
+            <br />
         </li>
     </foreach>
 </ul>

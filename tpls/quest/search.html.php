@@ -1,8 +1,8 @@
 <h1>Search</h1>
 
 <form method="GET">
-    <input type="text" name="keyword" value="<encode @$keyword />">
-    <button type="submit">Search</button>
+    <input class="form-control" type="text" name="keyword" value="<encode @$keyword />">
+    <button class="btn btn-primary" type="submit">Search</button>
 </form>
 
 <if @$contacts:>
@@ -20,7 +20,7 @@
     <ul>
         <foreach $quests as $quest:>
             <flat $quest />
-            <li>{$name}<a href="{$__base}quests/view?id={$quest_id}">(Details...)</a></li>
+            <li>{$name}<a href="{$__base}quests/view?id={$quest_id}&user_ref={$user_ref}">(Details...)</a></li>
         </foreach>
     </ul>
 </if>

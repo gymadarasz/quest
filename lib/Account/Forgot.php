@@ -98,7 +98,7 @@ class Forgot
         }
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
         if (!$this->mysql->update("
-            UPDATE user SET password_hash = '$hash' WHERE token = '" . $this->session->get('token') . "'
+            UPDATE user SET activated = 1, password_hash = '$hash' WHERE token = '" . $this->session->get('token') . "'
         ")) {
             $this->message->error('Password change failed. Please try again later...');
             $this->page->show('change');

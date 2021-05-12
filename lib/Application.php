@@ -57,10 +57,17 @@ class Application
                     }
                 }
             }
-            if ($area != 'public' && !$this->session->get('user_subscribed') && !in_array($route, ['home', 'logout'], true)) {
+            
+            if ($area === 'protected' && !$this->session->get('user_subscribed') && !in_array($route, [
+                'home', 
+                'logout',
+                'api/paypal-payment/create-payment',
+                'api/paypal-payment/execute-payment',
+            ], true)) {
                 $this->redirect->go('home');
                 return;
             }
+
             $class = $this->config::ROUTES[$area][$method][$route][0] ?? null;
             $func = $this->config::ROUTES[$area][$method][$route][1] ?? null;
             if (!$class || !$func) {
@@ -91,6 +98,13 @@ class Application
                 throw new Exception("Invalid route: [$method:$route]");
             }
             $this->factory->getInstance($class)->$func(...$this->config::ROUTES[$area][$method][$route][2] ?? []);
+        } catch (MysqlException $e) {
+            $this->message->error("Database error");
+            $message = $e->getMessage();
+            $debug = $message . " - " . $e->getAsString();
+            trigger_error($debug);
+            $this->message->debug($debug);
+            $this->redirect->go('error-page');
         } catch (Exception $e) {
             $this->message->error($e->getMessage());
             $debug = $e->getAsString();

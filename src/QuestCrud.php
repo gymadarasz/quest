@@ -2,6 +2,7 @@
 
 namespace Quest;
 
+use Madlib\Exception;
 use Madlib\Crud;
 use Madlib\Page;
 use Madlib\Mysql;
@@ -89,6 +90,18 @@ class QuestCrud extends Crud {
             'user_ref' => $this->session->get('user_ref'),
             'list' => $list,
         ]);
+    }
+
+    public function view(): void
+    {
+        $user_ref = $this->input->getString('user_ref');
+        if (!$this->validator->validate('required', $user_ref)) {
+            throw new Exception('Invalid input');
+        }
+        $item = $this->getItem();
+        $item['user_ref'] = $user_ref;  
+
+        $this->showViewPage($item);
     }
 
     // questions
@@ -264,8 +277,8 @@ class QuestCrud extends Crud {
             throw new Exception('Inserts failure: ' . $error);
         }
 
-        $this->message->success('Created');
-        $this->redirect->go('quests/view?id=' . $quest_id);
+        $this->message->success('Quest results are stored. Thank you!');
+        $this->redirect->go('quests/view?id=' . $quest_id . '&user_ref=' . $user_ref);
     }
 
 }

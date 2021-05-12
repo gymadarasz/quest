@@ -5,17 +5,20 @@ namespace Quest;
 use Madlib\Input;
 use Madlib\Page;
 use Madlib\Mysql;
+use Madlib\Session;
 
 class Search
 {
     protected Input $input;
     protected Page $page;
     protected Mysql $mysql;
+    protected Session $session;
 
-    public function __construct(Input $input, Page $page, Mysql $mysql) {
+    public function __construct(Input $input, Page $page, Mysql $mysql, Session $session) {
         $this->input = $input;
         $this->page = $page;
         $this->mysql = $mysql;
+        $this->session = $session;
     }
 
     public function show(): void {
@@ -36,6 +39,7 @@ class Search
                 "),
             ];
         }
+        $results['user_ref'] = $this->session->get('user_ref');
         $this->page->show('quest/search', $results);
     }
 }

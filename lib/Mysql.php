@@ -26,7 +26,7 @@ class Mysql
                 $this->config::MYSQL['database']
             );
             if ($this->mysqli->connect_errno) {
-                throw new Exception("Failed to connect to MySQL: " . $this->mysqli->connect_error);
+                throw new MysqlException("Failed to connect to MySQL: " . $this->mysqli->connect_error);
             }
         }
         return $this->mysqli;
@@ -39,14 +39,14 @@ class Mysql
 
     /**
      * @return mysqli_result|true
-     * @throws Exception
+     * @throws MysqlException
      */
     public function query(string $query)
     {
         $result = $this->getMysqli()->query($query);
         if (!$result) {
             $mysqli = $this->getMysqli();
-            throw new Exception('Query error: "' . $query . '"' . $mysqli->error, $mysqli->errno);
+            throw new MysqlException('Query error: "' . $query . '"' . $mysqli->error, $mysqli->errno);
         }
         return $result;
     }
@@ -72,7 +72,7 @@ class Mysql
         $this->query($query);
         $affectedRows = $this->getMysqli()->affected_rows;
         if ($affectedRows < 0) {
-            throw new Exception('Affect error');
+            throw new MysqlException('Affect error');
         }
         return $affectedRows;
     }
