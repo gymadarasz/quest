@@ -22,10 +22,10 @@ class Session
         session_destroy();
     }
 
-    public function get(string $key)
+    public function get(string $key = null)
     {
         $this->start();
-        return $_SESSION[$key] ?? null;
+        return null === $key ? $_SESSION : ($_SESSION[$key] ?? null);
     }
 
     public function set(string $key, $value): void

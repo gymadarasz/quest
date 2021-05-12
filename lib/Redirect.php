@@ -5,10 +5,12 @@ namespace Madlib;
 class Redirect
 {
     protected Config $config;
+    protected Request $request;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, Request $request)
     {
         $this->config = $config;
+        $this->request = $request;
     }
 
     public function go(string $location): void

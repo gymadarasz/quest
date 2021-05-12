@@ -28,4 +28,8 @@ class Request
     {
         return $_SERVER[$key] ?? '';
     }
+
+    public function getServerRequestUri(): string {
+        return $_SERVER['REQUEST_URI'];
+    }
 }

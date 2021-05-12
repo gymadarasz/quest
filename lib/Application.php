@@ -57,6 +57,10 @@ class Application
                     }
                 }
             }
+            if ($area != 'public' && !$this->session->get('user_subscribed') && !in_array($route, ['home', 'logout'], true)) {
+                $this->redirect->go('home');
+                return;
+            }
             $class = $this->config::ROUTES[$area][$method][$route][0] ?? null;
             $func = $this->config::ROUTES[$area][$method][$route][1] ?? null;
             if (!$class || !$func) {

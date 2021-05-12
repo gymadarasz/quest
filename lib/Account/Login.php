@@ -81,7 +81,11 @@ class Login
         }
 
         $user = $this->mysql->selectRow("
-            SELECT id, password_hash, activated, created_at, NOW() AS now, last_login_at, last_reset_at, admin FROM user WHERE email = '$email'
+            SELECT 
+                id, password_hash, activated, created_at, NOW() AS now, last_login_at, last_reset_at, admin, 
+                subscribed_until_at, subscribed_until_at > NOW() AS subscribed, ref 
+            FROM user 
+            WHERE email = '$email'
         ");
         if ($user && trim($user['password_hash']) && trim($password) && password_verify($password, $user['password_hash'])) {
             if (!($user = $this->anonym->activateFirstAnonymLogin($email, $user)) || !(int)$user['activated']) {
@@ -92,6 +96,9 @@ class Login
 
             $this->session->set('user_id', $user['id']);
             $this->session->set('user_admin', (int)$user['admin']);
+            $this->session->set('user_subscribed_until_at', $user['subscribed_until_at']);
+            $this->session->set('user_subscribed', (int)$user['subscribed']);
+            $this->session->set('user_ref', $user['ref']);
             $this->message->success('Logged in. Last login was at ' . $user['last_login_at']);
             $query = "
                 UPDATE user SET last_login_at = NOW() WHERE id = {$user['id']}

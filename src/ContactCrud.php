@@ -3,6 +3,13 @@
 namespace Quest;
 
 use Madlib\Crud;
+use Madlib\Page;
+use Madlib\Mysql;
+use Madlib\Message;
+use Madlib\Redirect;
+use Madlib\Input;
+use Madlib\Validator;
+use Madlib\Session;
 
 class ContactCrud extends Crud
 {
@@ -17,6 +24,21 @@ class ContactCrud extends Crud
     protected const UPDATE_REDIRECT = null;
     protected const VIEW_PAGE_TEMPLATE = null;
 
+    protected Session $session;
+
+    public function __construct(
+        Page $page,
+        Mysql $mysql,
+        Message $message,
+        Redirect $redirect,
+        Input $input,
+        Validator $validator,
+        Session $session
+    ) {
+        parent::__construct($page, $mysql, $message, $redirect, $input, $validator);
+        $this->session = $session;
+    }
+
     protected function getCreateQuery(array $data): string {
         throw new Exception('Unimplemented');
     }
@@ -30,7 +52,8 @@ class ContactCrud extends Crud
     }
     
     protected function getListQuery(): string {
-        return "SELECT * FROM contact";
+        $user_ref = $this->mysql->esc($this->session->get('user_ref'));
+        return "SELECT * FROM contact WHERE user_ref = '$user_ref'";
     }
     
     protected function getDeleteQuery(int $id): string {
@@ -38,7 +61,8 @@ class ContactCrud extends Crud
     }
     
     protected function getItemQuery(int $id): string {
-        return "SELECT * FROM contact WHERE id = $id";
+        $user_ref = $this->mysql->esc($this->session->get('user_ref'));
+        return "SELECT * FROM contact WHERE id = $id AND user_ref = '$user_ref'";
     }
     
     protected function getUpdateQuery(array $data): string {

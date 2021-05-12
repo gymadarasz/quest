@@ -5,7 +5,7 @@
 <ul>
     <foreach $list as $item:>
         <flat $item />
-        <li><a href="{$__base}quests/view?id={$id}">{$name}</a>
+        <li><a href="{$__base}quests/view?id={$id}&user_ref={$user_ref}">{$name}</a>
         (<a href="{$__base}quests/edit?id={$id}">Edit</a>|<a href="{$__base}quests/delete?id={$id}">Delete</a>)</li>
     </foreach>
 </ul>

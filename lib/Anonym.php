@@ -111,8 +111,8 @@ class Anonym
         $password = $this->code->generate(rand(12, 16), 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!?,,;:@#%&*-+/');
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
         $token = bin2hex(random_bytes(32));
-        $api_secret = $this->code->generate(30);
-        if (!$this->mysql->insert("INSERT INTO user (email, password_hash, token, api_secret) VALUES ('$email', '$hash', '$token', '$api_secret')")) {
+        $ref = $this->code->generate(30);
+        if (!$this->mysql->insert("INSERT INTO user (email, password_hash, token, ref) VALUES ('$email', '$hash', '$token', '$ref')")) {
             throw new Exception('Key generation error');
         }
         return [

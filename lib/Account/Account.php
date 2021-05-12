@@ -38,7 +38,7 @@ class Account
             return;
         }
         
-        $this->page->show('home', []);
+        $this->page->show('home', $this->session->get());
     }
 
     public function logout(): void

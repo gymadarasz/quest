@@ -3,6 +3,13 @@
 namespace Quest;
 
 use Madlib\Crud;
+use Madlib\Page;
+use Madlib\Mysql;
+use Madlib\Message;
+use Madlib\Redirect;
+use Madlib\Input;
+use Madlib\Validator;
+use Madlib\Session;
 
 class QuestCrud extends Crud {
 
@@ -16,6 +23,21 @@ class QuestCrud extends Crud {
     protected const EDIT_FORM_ACTION = 'update';
     protected const UPDATE_REDIRECT = 'quests';
     protected const VIEW_PAGE_TEMPLATE = 'quest/quest.view';
+
+    protected Session $session;
+
+    public function __construct(
+        Page $page,
+        Mysql $mysql,
+        Message $message,
+        Redirect $redirect,
+        Input $input,
+        Validator $validator,
+        Session $session
+    ) {
+        parent::__construct($page, $mysql, $message, $redirect, $input, $validator);
+        $this->session = $session;
+    }
 
     protected function getCreateQuery(array $data): string {
         return "INSERT INTO quest (name) VALUES ('{$data['name']}')";
@@ -58,6 +80,15 @@ class QuestCrud extends Crud {
         return 
             $this->validator->validate('required', $data['id']) && 
             $this->validator->validate('required', $data['name']);
+    }
+
+    public function list(): void
+    {
+        $list = $this->mysql->select($this->getListQuery());
+        $this->page->show($this->getListPageTemplate(), [
+            'user_ref' => $this->session->get('user_ref'),
+            'list' => $list,
+        ]);
     }
 
     // questions
@@ -130,6 +161,8 @@ class QuestCrud extends Crud {
         $this->redirect->go('quests/edit?id=' . $quest_id);
     }
 
+    // answer
+
     public function createAnswer(): void {
         $quest_id = $this->input->getInt('quest_id');
         $question_id = $this->input->getInt('question_id');
@@ -194,6 +227,7 @@ class QuestCrud extends Crud {
     // fill
 
     public function fillQuest(): void {
+        $user_ref = $this->input->getString('user_ref');
         $name = $this->input->getString('name');
         $address = $this->input->getString('address');
         $email = $this->input->getString('email');
@@ -203,6 +237,7 @@ class QuestCrud extends Crud {
         $quest = $this->input->getIntArrayAssoc('quest');
 
         if (
+            !$this->validator->validate('required', $user_ref) ||
             !$this->validator->validate('required', $name) ||
             !$this->validator->validate('required', $quest_id) ||
             !$quest
@@ -210,7 +245,7 @@ class QuestCrud extends Crud {
             throw new Exception("Invalid parameters");
         }
 
-        $query = "INSERT INTO contact (name, address, email, phone) VALUES ('$name', '$address', '$email', '$phone')";
+        $query = "INSERT INTO contact (name, address, email, phone, user_ref) VALUES ('$name', '$address', '$email', '$phone', '$user_ref')";
         if (!$this->mysql->insert($query)) {
             throw new Exception("Insert error");
         }
