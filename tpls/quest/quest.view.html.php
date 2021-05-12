@@ -1,6 +1,6 @@
 <h1>{$name}</h1>
 
-<form method="POST" action="quest/quests/fill?quest_id=4">
+<form method="POST" action="quest/quests/fill?quest_id={$id}">
     <input type="hidden" name="csrf" value="{$__csrf}">
 
     <ul>
