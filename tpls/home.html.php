@@ -3,8 +3,8 @@
 <if $user_subscribed:>
     Subscribed until: {$user_subscribed_until_at}
 <else>
-    Please subscribe, only <encode $this->config::QUEST['paypal_checkout_amount'] /> <encode $this->config::QUEST['paypal_checkout_currency'] />
-    for <encode $this->config::QUEST['paypal_checkout_subscription_long'] /> period.
+    Please subscribe, only <?php echo $this->config::QUEST['paypal_checkout_amount']; ?> <?php echo $this->config::QUEST['paypal_checkout_currency']; ?>
+    for <?php echo $this->config::QUEST['paypal_checkout_subscription_long']; ?> period.
     <br />
     <div>
         
