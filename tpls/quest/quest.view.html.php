@@ -3,9 +3,9 @@
 <form method="POST" action="quest/quests/fill?quest_id={$id}&user_ref={$user_ref}">
     <input type="hidden" name="csrf" value="{$__csrf}">
 
-    <ul>
+    <ul class="list-group">
         <foreach $questions as $question:>
-            <li>
+            <li class="list-group-item">
                 <h3><encode $question['label'] /></h3>
                 <ul>
                     <foreach $question['answers'] as $answer:>
@@ -18,10 +18,15 @@
             </li>
         </foreach>
     </ul>
+    <br />
 
+    <label>Name</label>
     <input class="form-control" type="text" name="name" value="" placeholder="Name" required /><br />
+    <label>Address</label>
     <input class="form-control" type="text" name="address" value="" placeholder="Address" /><br />
+    <label>Email</label>
     <input class="form-control" type="text" name="email" value="" placeholder="Email" /><br />
+    <label>Phone</label>
     <input class="form-control" type="text" name="phone" value="" placeholder="Phone" /><br />
 
     <button class="btn btn-primary" type="submit">Send</button>

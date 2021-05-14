@@ -1,9 +1,9 @@
 <h1>Contact list</h1>
 
-<ul>
+<ul class="list-group">
     <foreach $list as $item:>
         <flat $item />
-        <li>
+        <li class="list-group-item">
             Name: {$name}<br />
             Address: {$address}<br />
             Email: {$email}<br />

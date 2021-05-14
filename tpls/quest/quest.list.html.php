@@ -4,11 +4,12 @@
     <a href="{$__base}quests/new">Create new quest</a>
 </if>
 
-<ul>
+<ul class="list-group">
     <foreach $list as $item:>
         <flat $item />
-        <li>
+        <li class="list-group-item">
             <a href="{$__base}quests/view?id={$id}&user_ref={$user_ref}">{$name}</a>
+            <br />
             <br />
             <input type="text" id="link_{$id}" value="{$__base}quests/view?id={$id}&user_ref={$user_ref}" />
             <a href="javasctipt:void(0);" onclick="copyLink('link_{$id}');">Copy link</a>

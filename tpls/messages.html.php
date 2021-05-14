@@ -1,35 +1,27 @@
 <flat $messages />
 
 <if !empty($error):>
-    <ul class="error" style="color:red;">
-        <foreach $error as $message:>
-            <li>{$message}</li>
-        </foreach>
-    </ul>
+    <foreach $error as $message:>
+        <div class="alert alert-danger" role="alert">{$message}</div>
+    </foreach>
 </if>
 
 <if !empty($alert):>
-    <ul class="alert" style="color:orange;">
-        <foreach $alert as $message:>
-            <li>{$message}</li>
-        </foreach>
-    </ul>
+    <foreach $alert as $message:>
+        <div class="alert alert-warning" role="alert">{$message}</div>
+    </foreach>
 </if>
 
 <if !empty($success):>
-    <ul class="success" style="color:green;">
-        <foreach $success as $message:>
-            <li>{$message}</li>
-        </foreach>
-    </ul>
+    <foreach $success as $message:>
+        <div class="alert alert-success" role="alert">{$message}</div>
+    </foreach>
 </if>
 
 <if !empty($info):>
-    <ul class="info" style="color:blue;">
-        <foreach $info as $message:>
-            <li>{$message}</li>
-        </foreach>
-    </ul>
+    <foreach $info as $message:>
+        <div class="alert alert-info" role="alert">{$message}</div>
+    </foreach>
 </if>
 
 <if !empty($debug):>
