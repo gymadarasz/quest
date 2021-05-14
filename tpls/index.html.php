@@ -25,6 +25,12 @@
                 min-width: 90%;
             }
         }
+        .bg-light {
+            background-color: #def!important;
+        }
+        .list-group-item:nth-child(2n) {
+            background-color: #f8f8f8!important;
+        }
         </style>
     </head>
     <body>
