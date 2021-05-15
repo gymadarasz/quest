@@ -11,7 +11,7 @@
         </svg>
         Email
     </label>
-    <input class="form-control" type="email" name="email" placeholder="Email" value="{@$email}">
+    <input class="form-control" type="email" name="email" placeholder="Email" value="{@$email}" />
     <br />
 
     <label>
@@ -21,7 +21,13 @@
         </svg>
         Password
     </label>
-    <input class="form-control" type="password" name="password" placeholder="Password" value="">
+    <input class="form-control" type="password" name="password" placeholder="Password" value="" />
+    <br />
+
+    <input type="checkbox" required />
+    <label>
+        <small>I have read the Terms and Conditions</small>
+    </label>
     <br />
     
     <button class="btn btn-primary">Sign up</button>
