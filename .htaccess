@@ -7,3 +7,6 @@ RewriteRule ^(.*)$ /quest/index.php?route=$1 [NC,L,QSA]
 
 # to get it works, you need 'sudo a2enmod rewrite' and 'AllowOverride All'
 # see more: http://www.iasptk.com/enable-apache-mod_rewrite-ubuntu-14-04-lts/
+
+
+RedirectMatch 404 /\.git
