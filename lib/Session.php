@@ -34,9 +34,15 @@ class Session
         $_SESSION[$key] = $value;
     }
 
-    public function unset(string $key)
+    public function unset(string $key): void
     {
         $this->start();
         unset($_SESSION[$key]);
+    }
+
+    public function isset(string $key): bool
+    {
+        $this->start();
+        return isset($_SESSION[$key]);
     }
 }

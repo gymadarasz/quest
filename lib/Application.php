@@ -60,6 +60,7 @@ class Application
             
             if ($area === 'protected' && !$this->session->get('user_subscribed') && !in_array($route, [
                 'home', 
+                'home/lang',
                 'logout',
                 'api/paypal-payment/create-payment',
                 'api/paypal-payment/execute-payment',

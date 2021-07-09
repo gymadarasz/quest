@@ -1,5 +1,17 @@
 <h1>Home</h1>
 
+<form method="POST" action="{$__base}home/lang">
+    <input type="hidden" name="csrf" value="{$__csrf}" />
+    <label>Select your language:</label>
+    <select name="lang">
+        <option value=""<if !$user_lang:> selected="selected"</if>>- Please select -</option>
+        <foreach $langs as $lang_key => $lang:>
+            <option value="{$lang_key}"<if $user_lang==$lang_key:> selected="selected"</if>><echo $lang['name'] /></option>
+        </foreach>
+    </select>
+    <input type="submit" value="Save" />
+</form>
+
 <if $user_subscribed:>
     Subscribed until: {$user_subscribed_until_at}
 <else>

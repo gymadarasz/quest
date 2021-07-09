@@ -11,6 +11,8 @@ use Madlib\Redirect;
 use Madlib\Input;
 use Madlib\Validator;
 use Madlib\Session;
+use Madlib\Config;
+use Madlib\Account\Account;
 
 class QuestCrud extends Crud {
 
@@ -26,6 +28,8 @@ class QuestCrud extends Crud {
     protected const VIEW_PAGE_TEMPLATE = 'quest/quest.view';
 
     protected Session $session;
+    protected Config $config;
+    protected Account $account;
 
     public function __construct(
         Page $page,
@@ -34,10 +38,14 @@ class QuestCrud extends Crud {
         Redirect $redirect,
         Input $input,
         Validator $validator,
-        Session $session
+        Session $session,
+        Config $config,
+        Account $account
     ) {
         parent::__construct($page, $mysql, $message, $redirect, $input, $validator);
         $this->session = $session;
+        $this->config = $config;
+        $this->account = $account;
     }
 
     protected function getCreateQuery(array $data): string {
@@ -55,6 +63,10 @@ class QuestCrud extends Crud {
     }
 
     protected function getListQuery(): string {
+        if (!$this->account->isAdmin()) {
+            $lang = $this->account->getUserLang();
+            return "SELECT * FROM quest WHERE lang = '$lang'";
+        }
         return "SELECT * FROM quest";
     }
 
@@ -89,6 +101,7 @@ class QuestCrud extends Crud {
         $this->page->show($this->getListPageTemplate(), [
             'user_ref' => $this->session->get('user_ref'),
             'list' => $list,
+            'langs' => $this->config::SITE['langs'],
         ]);
     }
 
@@ -281,4 +294,19 @@ class QuestCrud extends Crud {
         $this->redirect->go('quests/view?id=' . $quest_id . '&user_ref=' . $user_ref);
     }
 
+
+    public function setLang(): void 
+    {
+        $lang = $this->input->getString('lang');
+        if ($lang && !in_array($lang, array_keys($this->config::SITE['langs']), true)) {
+            throw new Exception('Invalid language');
+        }
+        $quest_id = (int)$this->input->getInt('quest_id');
+        if (!$this->account->isAdmin()) {
+            throw new Exception('Unable to access to quest');
+        }
+        $this->mysql->update("UPDATE quest SET lang = '$lang' WHERE id = $quest_id LIMIT 1");
+        $this->message->success("Language set to '" . ($this->config::SITE['langs'][$lang]['name'] ?: 'Unknown') . "' ");
+        $this->redirect->go('quests');
+    }
 }
