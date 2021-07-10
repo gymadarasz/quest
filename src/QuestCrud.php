@@ -65,6 +65,10 @@ class QuestCrud extends Crud {
     protected function getListQuery(): string {
         if (!$this->account->isAdmin()) {
             $lang = $this->account->getUserLang();
+            if (!$lang) {
+                $this->message->alert('Please select your language');
+                $this->redirect->go('home');
+            }
             return "SELECT * FROM quest WHERE lang = '$lang'";
         }
         return "SELECT * FROM quest";
