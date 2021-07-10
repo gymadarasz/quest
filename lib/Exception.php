@@ -7,7 +7,7 @@ class Exception extends \Exception
     public function __construct($message = null, $code = 0, $previous = null)
     {
         if (Config::SITE['env'] === Config::ENV_LIVE) {
-            sleep(15);
+            sleep(5);
         }
         parent::__construct($message, $code, $previous);
     }

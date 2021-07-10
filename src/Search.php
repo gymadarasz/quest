@@ -23,7 +23,10 @@ class Search
 
     public function show(): void {
         $keyword = $this->input->getString('keyword');
-        $results = [];
+        $results = [
+            'contacts' => [],
+            'quests' => [],
+        ];
         if ($keyword) {
             $results = [
                 'contacts' => $this->mysql->select("
@@ -40,6 +43,7 @@ class Search
             ];
         }
         $results['user_ref'] = $this->session->get('user_ref');
+        $results['keyword'] = $keyword;
         $this->page->show('quest/search', $results);
     }
 }

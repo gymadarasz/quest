@@ -1,7 +1,7 @@
 <h1>Search</h1>
 
 <form method="GET">
-    <input class="form-control" type="text" name="keyword" value="<encode @$keyword />">
+    <input class="form-control" type="text" name="keyword" value="<encode $keyword />">
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
 

@@ -4,6 +4,8 @@ namespace Madlib;
 
 class Template
 {
+    protected static $cacheClean = false;
+
     protected Config $config;
     protected Session $session;
     protected Code $code;
@@ -14,18 +16,21 @@ class Template
         $this->session = $session;
         $this->code = $code;
         if ($this->config::TEMPLATE['devmode']) {
-            $this->clearCache();
+           $this->clearCache();
         }
     }
 
     protected function clearCache(): void
     {
-        $files = glob($this->config::TEMPLATE['cache'] . '*.html.php.*.php');
-        foreach ($files as $cachefile) {
-            if (is_dir($cachefile)) {
-                continue;
+        if (!self::$cacheClean) {
+            $files = glob($this->config::TEMPLATE['cache'] . '*.html.php.*.php');
+            foreach ($files as $cachefile) {
+                if (is_dir($cachefile)) {
+                    continue;
+                }
+                unlink($cachefile);
             }
-            unlink($cachefile);
+            self::$cacheClean = true;
         }
     }
 
