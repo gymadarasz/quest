@@ -22,10 +22,10 @@
 
     <label>Name</label>
     <input class="form-control" type="text" name="name" value="" placeholder="Name" required /><br />
+    <label>Email</label>
+    <input class="form-control" type="text" name="email" value="" placeholder="Email" required /><br />
     <label>Address</label>
     <input class="form-control" type="text" name="address" value="" placeholder="Address" /><br />
-    <label>Email</label>
-    <input class="form-control" type="text" name="email" value="" placeholder="Email" /><br />
     <label>Phone</label>
     <input class="form-control" type="text" name="phone" value="" placeholder="Phone" /><br />
 
