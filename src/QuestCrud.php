@@ -125,9 +125,9 @@ class QuestCrud extends Crud {
 
     protected function getItem(): array {
         $item = parent::getItem();        
-        $item['questions'] = $this->mysql->select("SELECT * FROM question WHERE quest_id = {$item['id']}");
+        $item['questions'] = $this->mysql->select("SELECT * FROM question WHERE quest_id = {$item['id']} ORDER BY ord");
         foreach ($item['questions'] as &$question) {
-            $question['answers'] = $this->mysql->select("SELECT * FROM answer WHERE question_id = {$question['id']}");
+            $question['answers'] = $this->mysql->select("SELECT * FROM answer WHERE question_id = {$question['id']} ORDER BY ord");
         }
         return $item;
     }
@@ -155,6 +155,7 @@ class QuestCrud extends Crud {
         $quest_id = $this->input->getInt('quest_id');
         $question_id = $this->input->getInt('question_id');
         $label = $this->input->getString('label');
+        $ord = $this->input->getInt('ord');
 
         if (
             !$this->validator->validate('required', $quest_id) ||
@@ -164,7 +165,7 @@ class QuestCrud extends Crud {
             throw new Exception('Invalid parameters');
         }
 
-        $query = "UPDATE question SET label = '$label' WHERE id = $question_id";
+        $query = "UPDATE question SET label = '$label', ord = $ord WHERE id = $question_id";
         if (!$this->mysql->insert($query)) {
             throw new Exception('Update failed');
         }
@@ -218,6 +219,7 @@ class QuestCrud extends Crud {
         $quest_id = $this->input->getInt('quest_id');
         $answer_id = $this->input->getInt('answer_id');
         $label = $this->input->getString('label');
+        $ord = $this->input->getInt('ord');
 
         if (
             !$this->validator->validate('required', $quest_id) ||
@@ -227,7 +229,7 @@ class QuestCrud extends Crud {
             throw new Exception('Invalid parameters');
         }
 
-        $query = "UPDATE answer SET label = '$label' WHERE id = $answer_id";
+        $query = "UPDATE answer SET label = '$label', ord = $ord WHERE id = $answer_id";
         if (!$this->mysql->update($query)) {
             throw new Exception('Update failed');
         }
