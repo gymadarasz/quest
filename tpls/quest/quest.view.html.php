@@ -23,7 +23,7 @@
     <label>Name</label>
     <input class="form-control" type="text" name="name" value="" placeholder="Name" required /><br />
     <label>Email</label>
-    <input class="form-control" type="text" name="email" value="" placeholder="Email" required /><br />
+    <input class="form-control" type="email" name="email" value="" placeholder="Email" required /><br />
     <!--
     <label>Address</label>
     <input class="form-control" type="text" name="address" value="" placeholder="Address" /><br />
