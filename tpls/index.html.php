@@ -48,6 +48,19 @@
             background-color: #f5f5f5;
         }
         </style>
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYDSFXZ9SQ"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYDSFXZ9SQ');
+        </script>
+
+
     </head>
     <body>
         <include $__path . 'navigation.html.php' />
